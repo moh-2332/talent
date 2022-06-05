@@ -6,6 +6,10 @@ const useStyles = makeStyles((theme) => {
             cursor: "pointer",
             alignItems: "flex-start"
         },
+        story: {
+            position: "sticky",
+            top: 74
+        },
         header: {
             backgroundColor: 'rgba(0, 0, 0, 0.08)'
         },

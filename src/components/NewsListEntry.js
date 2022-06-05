@@ -8,6 +8,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
+import { getFirstLetter } from "../helpers/text"
+
 import useStyles from "./styles";
 
 function NewsListEntry({ story }) {
@@ -17,14 +19,14 @@ function NewsListEntry({ story }) {
     const createdAt = time ? new Date(time * 1000).toLocaleString() : "Not available";
 
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card className={classes.story}>
             <CardHeader
                 className={classes.header}
                 avatar={
-                    <Avatar className={classes.avatar}>{by}</Avatar>
+                    <Avatar className={classes.avatar}>{getFirstLetter(by)}</Avatar>
                 }
                 title={title}
-                subheader={`Created At: ${createdAt}`}
+                subheader={`Created By: ${by} on ${createdAt}`}
             />
             <Box className={classes.info}>
                 <Grid container>
