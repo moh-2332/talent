@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => {
         },
         story: {
             position: "sticky",
-            top: 74
+            top: 100
         },
         header: {
             backgroundColor: 'rgba(0, 0, 0, 0.08)'
