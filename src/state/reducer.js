@@ -4,7 +4,7 @@ export const ACTION_TYPES = {
     ADD_STORY: 'ADD_STORY'
 }
 
-const initialState = {
+export const initialState = {
     stories: [],
     storyIds: [],
     status: {}
