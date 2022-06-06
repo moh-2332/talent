@@ -6,7 +6,7 @@ import { getStatus } from "./state/selectors";
 import { Container, Typography, Box } from '@material-ui/core';
 
 import NewsList from './components/NewsList';
-// import { Task2 } from './Task2';
+import { Task2 } from './Task2';
 
 function App() {
     const status = useSelector(getStatus);
@@ -17,7 +17,7 @@ function App() {
                 <Typography variant="subtitle2">{status.message}</Typography>
             </Box>
             <NewsList />
-            {/* <Task2 /> */}
+            <Task2 />
         </Container>
     );
 }
