@@ -85,7 +85,7 @@ function NewsList() {
                                         </Typography>
                                     </ListItemText>
                                     <Hidden smUp>
-                                        <Button size="small" color="secondary" variant="outlined" onClick={openHandler}>Details...</Button>
+                                        <Button size="small" color="secondary" variant="text" onClick={openHandler}>Details...</Button>
                                     </Hidden>
                                 </ListItem>
                                 <Divider component="li" />
