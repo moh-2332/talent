@@ -9,6 +9,8 @@ import NewsListEntry from "./NewsListEntry";
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Modal from '@material-ui/core/Modal';
+import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -24,6 +26,7 @@ function NewsList() {
 
     const [selectedStory, setSelectedStory] = useState(null);
     const [page, setPage] = useState(0);
+    const [openModal, setOpenModal] = useState(false);
 
     const stories = useSelector(getStories);
 
@@ -61,6 +64,10 @@ function NewsList() {
         setPage(page => page + 1);
     }
 
+    const openHandler = () => setOpenModal(true);
+
+    const closeHandler = () => setOpenModal(false);
+
     return (
         <React.Fragment>
             <Grid container spacing={2} >
@@ -78,7 +85,7 @@ function NewsList() {
                                         </Typography>
                                     </ListItemText>
                                     <Hidden smUp>
-                                        <Button size="small" color="secondary" variant="outlined">Details...</Button>
+                                        <Button size="small" color="secondary" variant="outlined" onClick={openHandler}>Details...</Button>
                                     </Hidden>
                                 </ListItem>
                                 <Divider component="li" />
@@ -91,6 +98,15 @@ function NewsList() {
                         {selectedStory && <NewsListEntry story={selectedStory} />}
                     </Grid>
                 </Hidden>
+                <Modal
+                    keepMounted
+                    open={openModal}
+                    onClose={closeHandler}
+                >
+                    <Box className={classes.modal}>
+                        {selectedStory && <NewsListEntry story={selectedStory} />}
+                    </Box>
+                </Modal>
             </Grid >
         </React.Fragment>
     );
