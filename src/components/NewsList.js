@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 import { loadTopstories } from "../state/actions";
-import { getStories, getStatus } from '../state/selectors';
+import { getStories } from '../state/selectors';
 
 import NewsListEntry from "./NewsListEntry";
 
@@ -26,7 +26,6 @@ function NewsList() {
     const [page, setPage] = useState(0);
 
     const stories = useSelector(getStories);
-    const status = useSelector(getStatus);
 
     const classes = useStyles();
 

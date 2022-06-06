@@ -28,7 +28,7 @@ export function loadTopstories(from, to) {
                 } catch (error) {
                     dispatch({
                         type: ACTION_TYPES.SET_STATUS, payload: {
-                            value: "erro",
+                            value: "error",
                             message: `Error: ${error}`
                         }
                     });
@@ -41,13 +41,13 @@ export function loadTopstories(from, to) {
             dispatch({
                 type: ACTION_TYPES.SET_STATUS, payload: {
                     value: "success",
-                    message: "All data received successfully."
+                    message: "Success"
                 }
             });
         } catch (error) {
             dispatch({
                 type: ACTION_TYPES.SET_STATUS, payload: {
-                    value: "erro",
+                    value: "error",
                     message: `Error: ${error}`
                 }
             });

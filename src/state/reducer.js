@@ -13,7 +13,7 @@ const initialState = {
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case ACTION_TYPES.SET_STATUS:
-            return { ...state, status: { valus: action.payload.value, message: action.payload.message } }
+            return { ...state, status: { value: action.payload.value, message: action.payload.message } }
         case ACTION_TYPES.ADD_STORY:
             return { ...state, stories: [...state.stories, action.payload] }
         case ACTION_TYPES.SET_STORY_IDS:
