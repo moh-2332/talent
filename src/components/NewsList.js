@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 import { loadTopstories } from "../state/actions";
-import { getStories } from '../state/selectors';
+import { getStories, getStatus } from '../state/selectors';
 
 import NewsListEntry from "./NewsListEntry";
 
@@ -25,7 +25,8 @@ function NewsList() {
     const [selectedStory, setSelectedStory] = useState(null);
     const [page, setPage] = useState(0);
 
-    const stories = useSelector(state => getStories(state));
+    const stories = useSelector(getStories);
+    const status = useSelector(getStatus);
 
     const classes = useStyles();
 
@@ -60,8 +61,6 @@ function NewsList() {
 
         setPage(page => page + 1);
     }
-
-
 
     return (
         <React.Fragment>

@@ -2,7 +2,12 @@ import { ACTION_TYPES } from "./reducer"
 
 export function loadTopstories(from, to) {
     return async (dispatch, getState) => {
-        dispatch({ type: ACTION_TYPES.SET_LOADING, payload: true });
+        dispatch({
+            type: ACTION_TYPES.SET_STATUS, payload: {
+                value: "loading",
+                message: "Loading..."
+            }
+        });
 
         const fetchStories = async () => {
             if (getState().storyIds.length === 0) {
@@ -21,19 +26,31 @@ export function loadTopstories(from, to) {
                     const story = await fetchStoryById(storyId);
                     dispatch({ type: ACTION_TYPES.ADD_STORY, payload: story })
                 } catch (error) {
-                    dispatch({ type: ACTION_TYPES.SET_ERROR, payload: error });
+                    dispatch({
+                        type: ACTION_TYPES.SET_STATUS, payload: {
+                            value: "erro",
+                            message: `Error: ${error}`
+                        }
+                    });
                 }
             }
         }
 
         try {
             await fetchStories();
+            dispatch({
+                type: ACTION_TYPES.SET_STATUS, payload: {
+                    value: "success",
+                    message: "All data received successfully."
+                }
+            });
         } catch (error) {
-            dispatch({ type: ACTION_TYPES.SET_ERROR, payload: error });
-        }
-
-        if (getState().loading) {
-            dispatch({ type: ACTION_TYPES.SET_LOADING, payload: false });
+            dispatch({
+                type: ACTION_TYPES.SET_STATUS, payload: {
+                    value: "erro",
+                    message: `Error: ${error}`
+                }
+            });
         }
     };
 }
