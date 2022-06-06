@@ -41,9 +41,11 @@ describe("Test reducer", () => {
     it("should change the status correctly and keep the other states unchanged", () => {
         let newState = reducer(initialState, { type: ACTION_TYPES.SET_STATUS, payload: SUCCESS });
         expect(newState.status.value).toMatch('Success');
+        expect(newState.status).toMatchObject(SUCCESS);
 
         newState = reducer(newState, { type: ACTION_TYPES.SET_STATUS, payload: ERROR });
         expect(newState.status.value).toMatch('Error');
+        expect(newState.status).toMatchObject(ERROR);
 
         expect(newState.stories).toHaveLength(0);
         expect(newState.storyIds).toHaveLength(0);
