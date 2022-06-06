@@ -1,29 +1,39 @@
 import { ACTION_TYPES } from "./reducer"
 
-export function loadTopstories() {
+export function loadTopstories(from, to) {
     return async (dispatch, getState) => {
+        dispatch({ type: ACTION_TYPES.SET_LOADING, payload: true });
 
         const fetchStories = async () => {
-            dispatch({ type: ACTION_TYPES.SET_LOADING, payload: true });
-            const response = await fetch('https://hacker-news.firebaseio.com/v0/askstories.json');
+            if (getState().storyIds.length === 0) {
+                const response = await fetch('https://hacker-news.firebaseio.com/v0/askstories.json');
 
-            if (!response.ok) {
-                throw new Error("Something went wrong during the fetching the stories...");
+                if (!response.ok) {
+                    throw new Error("Something went wrong during the fetching the stories...");
+                }
+
+                const storyIds = await response.json();
+                dispatch({ type: ACTION_TYPES.SET_STORY_IDS, payload: storyIds });
             }
 
-            const storyIds = await response.json();
-            storyIds.map(storyId => {
-                return fetchStoryById(storyId)
-                    .then(story => dispatch({ type: ACTION_TYPES.SET_STORIES, payload: story }))
-                    .catch(error => dispatch({ type: ACTION_TYPES.SET_ERROR, payload: error }));
-            });
-            dispatch({ type: ACTION_TYPES.SET_LOADING, payload: false });
+            for (let storyId of getState().storyIds.slice(from, to)) {
+                try {
+                    const story = await fetchStoryById(storyId);
+                    dispatch({ type: ACTION_TYPES.ADD_STORY, payload: story })
+                } catch (error) {
+                    dispatch({ type: ACTION_TYPES.SET_ERROR, payload: error });
+                }
+            }
         }
 
         try {
-            fetchStories();
+            await fetchStories();
         } catch (error) {
             dispatch({ type: ACTION_TYPES.SET_ERROR, payload: error });
+        }
+
+        if (getState().loading) {
+            dispatch({ type: ACTION_TYPES.SET_LOADING, payload: false });
         }
     };
 }
@@ -35,5 +45,5 @@ const fetchStoryById = async (id) => {
         throw new Error("Something went wrong during the fetching the story based on the provided id...");
     }
 
-    return response.json();
+    return await response.json();
 }

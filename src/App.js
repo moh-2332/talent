@@ -9,7 +9,7 @@ function App() {
     return (
         <Provider store={store}>
             <Container maxWidth="md">
-                <Box m={2}><Typography variant="h4">Hacker News Topstories</Typography></Box>
+                <Box p={2} sx={{ position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 1 }}><Typography variant="h4">Hacker News Topstories</Typography></Box>
                 <NewsList />
                 {/* <Task2 /> */}
             </Container>

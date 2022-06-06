@@ -2,7 +2,11 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => {
     return {
-        entry: {
+        list: {
+            overflowY: "auto",
+            maxHeight: "85vh",
+        },
+        item: {
             cursor: "pointer",
             alignItems: "flex-start"
         },
